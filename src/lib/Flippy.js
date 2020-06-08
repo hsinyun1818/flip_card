@@ -9,6 +9,7 @@ export default class Flippy extends React.Component {
       isFlipped: false,
       isTouchDevice: false
     };
+//      console.log(this.props);
   }
 
   static getDerivedStateFromProps(props, state) {
@@ -60,7 +61,7 @@ export default class Flippy extends React.Component {
   }
 
   render() {
-    const { children, style, flipDirection, flipOnHover, flipOnClick } = this.props;
+    const { children, style, flipDirection, flipOnHover, flipOnClick ,onClick} = this.props;
     const { isFlipped, activeCardIndex, isTouchDevice } = this.state;
     const methods = !!flipOnHover ? {
       onMouseEnter: this.handleHoverOn,
@@ -68,8 +69,12 @@ export default class Flippy extends React.Component {
       onTouchStart: this.handleTouchStart,
       onTouchEnd: this.handleTouchEnd
     } : flipOnClick ? {
-      onClick: this.toggle
+      onClick: () => {
+        onClick();
+        this.toggle();
+      }
     } : {};
+
     return (
       <div
         className="flippy-container"
